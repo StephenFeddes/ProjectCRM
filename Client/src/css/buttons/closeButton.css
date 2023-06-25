@@ -1,0 +1,12 @@
+.close {
+    background-color: rgba(250, 50, 50, 0.25);
+    width: 37px;
+    height: 37px;
+    color: rgb(250, 50, 50);
+    padding: 10px;
+    cursor: pointer;
+}
+
+.close:hover {
+    background-color: rgba(250, 50, 50, 0.5);
+}

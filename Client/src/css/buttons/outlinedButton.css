@@ -1,0 +1,20 @@
+.outlined-button {
+    border: 2px solid var(--grey);
+    border-radius: 3px;
+    padding: 5px 15px 5px 15px;
+    background-color: var(--white);
+    color: var(--darkGrey);
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.outlined-button:hover {
+    background-color: var(--lightGrey);
+}
+
+.plus-sign {
+    font-size: 20px;
+    background-color: green;
+    max-height: 0px;
+}

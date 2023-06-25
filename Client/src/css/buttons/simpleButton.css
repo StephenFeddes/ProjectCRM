@@ -1,0 +1,52 @@
+.simple-button {
+    border: none;
+    border-radius: 3px;
+    padding: 5px 15px 5px 15px;
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 400;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, .6);
+}
+
+.simple-button.yellow {
+    background-color: var(--yellow);
+}
+
+.simple-button.yellow:hover {
+    background-color: var(--darkYellow);
+}
+
+.simple-button.red {
+    background-color: var(--red);
+}
+
+.simple-button.red:hover {
+    background-color: var(--darkRed);
+}
+
+.simple-button.blue {
+    background-color: var(--blue);
+}
+
+.simple-button.blue:hover {
+    background-color: var(--darkBlue);
+}
+
+.simple-button.green {
+    background-color: var(--green);
+}
+
+.simple-button.green:hover {
+    background-color: var(--darkGreen);
+}
+
+.simple-button.grey {
+    background-color: var(--grey);
+    color: var(--darkGrey);
+}
+
+.simple-button.grey:hover {
+    background-color: var(--mediumGrey);
+}
+
