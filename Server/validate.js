@@ -1,25 +1,63 @@
 const conn = require('./db');
 
-async function validateUnique(tableColumnJson, ignoreId=0)
+async function validate(rules)
 {
-    const table = tableColumnJson.table;
-    const column = tableColumnJson.column;
-    const value = tableColumnJson.value;
+    let isPassed = true;
+    const test = [];
+    Object.keys(rules).forEach(fieldName => {
+        let errors = {};
+        const rule = rules[fieldName];
+
+        if (!validateRequired(rule.required)) {
+            errors[fieldName] = `${rule.fieldName} is required`;
+            test.push(errors);
+        }
+    });
+
+
+    return test;
+}
+
+function validateRequired(value) 
+{
+    if (value == "") {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+async function validateUnique(data)
+{
+    const table = data.table;
+    const column = data.column;
+    const value = data.value;
+    let fetchDuplicateRowsCount;
+    const ignoreId = data.ignoreId ?? null;
    
-    const fetchPrimaryKey = await conn.query(
-        `SELECT a.attname as primary_key
-        FROM pg_index i
-        JOIN pg_attribute a ON a.attrelid = i.indrelid AND a.attnum = ANY(i.indkey)
-        WHERE i.indrelid = $1::regclass AND i.indisprimary;`,
-        [table]
-    );
+    if (ignoreId) {
+        const fetchPrimaryKey = await conn.query(
+            `SELECT a.attname as primary_key
+            FROM pg_index i
+            JOIN pg_attribute a ON a.attrelid = i.indrelid AND a.attnum = ANY(i.indkey)
+            WHERE i.indrelid = $1::regclass AND i.indisprimary;`,
+            [table]
+        );
+        primaryKey = fetchPrimaryKey.rows[0].primary_key;
 
-    primaryKey = fetchPrimaryKey.rows[0].primary_key;
-
-    const fetchDuplicateRowsCount = await conn.query(
-        `SELECT COUNT(*) as count FROM ${table} WHERE ${column} = $1 AND ${primaryKey} != $2`,
-        [value, ignoreId]
-    );
+        fetchDuplicateRowsCount = await conn.query(
+            `SELECT COUNT(*) as count FROM ${table} WHERE ${column} = $1 AND ${primaryKey} != $2`,
+            [value, ignoreId]
+        );
+    }
+    else
+    {
+        fetchDuplicateRowsCount = await conn.query(
+            `SELECT COUNT(*) as count FROM ${table} WHERE ${column} = $1`,
+            [value]
+        );
+    }
     
     const duplicateRowsCount = parseInt(fetchDuplicateRowsCount.rows[0].count);
 
@@ -34,5 +72,6 @@ async function validateUnique(tableColumnJson, ignoreId=0)
 }
 
 module.exports = {
-    validateUnique: validateUnique
+    validateUnique: validateUnique,
+    validate: validate
 }

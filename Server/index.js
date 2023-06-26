@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const conn = require('./db');
-const { validateUnique } = require('./validate.js');
+const { validateUnique, validate } = require('./validate.js');
 
 // Middleware
 app.use(cors());
@@ -32,11 +32,19 @@ app.post("/test", async (req, res) => {
         const employee = req.body;
         const table = 'employee';
         const column = 'email_address';
-        const value = employee.emailAddress;
 
-        const fetchDuplicateRowsCount = await validateUnique({table: table, column: column, value: value});
-        
-        res.json(fetchDuplicateRowsCount);
+        const rules = {
+            firstName: {"required":employee.firstName, fieldName: "First name"},
+            lastName: {"required":employee.lastName, fieldName: "Last name"},
+            emailAddress: {
+                "unique":{table: 'employee', column: "email_address", value:employee.emailAddressName}, 
+                fieldName: "Email Address"}
+        };
+
+        //const validation = await validateUnique({table: table, column: column, value: value});
+        const validation = await validate(rules)
+
+        res.json(validation);
     } catch (err) {
         console.error(err.message);
     }
