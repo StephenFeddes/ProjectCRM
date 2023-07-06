@@ -18,6 +18,7 @@
     --darkGrey: rgb(25, 25, 25);
     --green: rgb(0, 165, 115);
     --darkGreen: rgb(0, 125, 75);
+    --lightBlue: rgb(154, 131, 248);
     --blue: rgb(80, 50, 200);
     --darkBlue: rgb(55, 35, 145);
     --red: rgb(250, 50, 50);
@@ -33,4 +34,5 @@ body {
     font-family: Poppins;
     font-size: 16;
     font-weight: 400;
+    color: var(--darkGrey);
 }

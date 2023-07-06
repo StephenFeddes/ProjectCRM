@@ -1,0 +1,123 @@
+.date-input {
+    display: flex;
+    border: 1px solid var(--grey);
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 7px 10px 7px 10px;
+    width: 100%;
+    position: relative;
+    cursor: pointer;
+}
+
+.date-input:hover {
+    border: 1px solid var(--blue);
+}
+
+.date-input input {
+    border: none;
+    pointer-events: none;
+    outline: none;
+}
+
+.date-input label {
+    position: absolute;
+    top: -2px;
+    left: 10px;
+    height: 2px;
+    line-height: 0;
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+    padding: 0 3px;
+    font-size: 15px;
+    color: var(--mediumGrey);
+}
+  
+.calendar-icon {
+pointer-events: none;
+height: 20px;
+width: 20px;
+color: var(--mediumGrey);
+}
+
+.date-input:hover .calendar-icon {
+    color: var(--darkGrey);
+}
+
+.react-datepicker {
+    border: 1px solid var(--blue);
+    border-radius: 3px;
+    z-index: 100;
+    margin-left: 50%;
+}
+
+.react-datepicker__header {
+    border-radius: 3px 3px 0px 0px !important;
+    background-color: var(--white);
+    border-bottom: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.react-datepicker__day.react-datepicker__day--keyboard-selected {
+    background-color: var(--lightBlue);
+}
+
+.react-datepicker__day.react-datepicker__day--keyboard-selected:hover {
+    background-color: var(--blue);
+}
+
+.react-datepicker__day:hover {
+    background-color: var(--lightGrey);
+}
+
+.react-datepicker__day.react-datepicker__day--selected {
+    background-color: var(--blue);
+}
+
+.react-datepicker__day.react-datepicker__day--selected:hover {
+    background-color: var(--darkBlue);
+}
+
+.react-datepicker__year-dropdown {
+    border: none;
+    background-color: var(--lightGrey);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, .3);
+}
+
+.react-datepicker__year-option:hover {
+    transition: .3s;
+}
+
+.react-datepicker__year-option:hover {
+    background-color: var(--grey);
+}
+
+.react-datepicker__year-option:first-child{
+    height: 35px;
+}
+
+.react-datepicker__year-option:first-child::before {
+    content: "More years";
+}
+
+.react-datepicker__year-option:last-child{
+    height: 35px;
+}
+
+.react-datepicker__year-option:last-child::before {
+    content: "Previous years";
+}
+
+.react-datepicker__day.react-datepicker__day--keyboard-selected.react-datepicker__day--today {
+    border: none;
+}
+
+.react-datepicker__tab-loop {
+    position: absolute;
+    top: 0;
+  }
+  
+  .react-datepicker__triangle {
+    display: none !important;
+  }

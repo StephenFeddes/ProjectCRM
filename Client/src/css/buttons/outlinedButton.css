@@ -1,5 +1,5 @@
 .outlined-button {
-    border: 2px solid var(--grey);
+    border: 1px solid var(--darkGrey);
     border-radius: 3px;
     padding: 5px 15px 5px 15px;
     background-color: var(--white);

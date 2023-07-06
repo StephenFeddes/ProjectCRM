@@ -5,7 +5,7 @@ const pool = new Pool({
     password: '456champ',
     host: 'localhost',
     port: 5432,
-    database: 'crm'
+    database: 'crms'
 });
 
 module.exports = pool;

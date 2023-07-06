@@ -1,0 +1,40 @@
+.phone.picklist .input-container .selected-input {
+    pointer-events: auto;
+    border: none;
+    border-radius: 0px 3px 3px 0px;
+    border-left: 1px solid var(--grey);
+}
+
+.phone.picklist:hover .input-container .selected-input {
+    border-left: 1px solid var(--blue);
+}
+
+.phone.picklist .input-container .selected-input:focus {
+    outline: 3px solid rgba(50, 165, 200, 0.5);
+    border: 1px solid var(--blue);
+}
+
+.phone.picklist .flag-container {
+    display: flex;
+}
+
+.phone.picklist .flag-container .flag {
+border-radius: 3px 0px 0px 3px;
+height: 41px;
+border-right: 1px solid var(--grey);
+width: 60px;
+}
+
+.phone.picklist:hover .flag-container .flag {
+    border-right: 1px solid var(--blue);
+}
+
+.phone.picklist ul .flag {
+height: 20px;
+width: 30px;
+margin-right: 5px;
+}
+
+.phone.picklist .input-container .arrow {
+	width: 35px;
+}

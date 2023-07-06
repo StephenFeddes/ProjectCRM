@@ -58,6 +58,8 @@
     margin-top: 5px;
     position: absolute;
     z-index: 5;
+    background-color: var(--white);
+    padding: 5px 0px 5px 0px;
 }
 
 .drop-list ul li {
@@ -68,7 +70,6 @@
     padding: 0px 15px 0px 15px;
     cursor: pointer;
 }
-
 
 .drop-list ul li:first-child {
     border-radius: 2px 2px 0px 0px;

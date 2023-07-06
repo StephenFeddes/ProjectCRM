@@ -5,6 +5,7 @@ import OutlinedButton from "./buttons/OutlinedButton";
 import { FaTimes } from "react-icons/fa";
 import { BsPlus } from 'react-icons/bs';
 import { useSpring, animated } from 'react-spring';
+import { AiOutlinePlus } from "react-icons/ai";
 
 function ModalForm({ formName, children, openBtnName}) {
 
@@ -22,10 +23,10 @@ function ModalForm({ formName, children, openBtnName}) {
       }
 		};
 
-		document.addEventListener("click", handleClickOutside);
+		document.addEventListener("mousedown", handleClickOutside);
 
 		return () => {
-			document.removeEventListener("click", handleClickOutside);
+			document.removeEventListener("mousedown", handleClickOutside);
 		};
 	}, []);
 
