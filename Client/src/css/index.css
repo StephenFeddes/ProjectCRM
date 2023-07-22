@@ -12,13 +12,16 @@
 :root {
     --white: rgb(250, 250, 250);
     --lightGrey: rgb(240, 240, 240);
-    --mediumGrey: rgb(150, 150, 150);
+    --mediumGrey: rgb(100, 100, 100);
     --grey: rgb(215, 215, 215);
     --black: rgb(25,25,25);
     --darkGrey: rgb(25, 25, 25);
     --green: rgb(0, 165, 115);
     --darkGreen: rgb(0, 125, 75);
-    --lightBlue: rgb(154, 131, 248);
+    --lightBlue: rgb(155, 130, 250);
+    --turquoise: rgb(25, 220, 215);
+    --translucentTurquoise: rgba(25, 220, 215, 0.2);
+    --translucentBlue: rgba(80, 50, 200, 0.2);
     --blue: rgb(80, 50, 200);
     --darkBlue: rgb(55, 35, 145);
     --red: rgb(250, 50, 50);
@@ -26,6 +29,7 @@
     --lightPurple: rgb(200, 200, 225);
     --veryLightPurple: rgb(225, 225, 250);
     --orange: rgb(240, 90, 25);
+    --pastelOrange: rgb(212, 170, 150);
     --yellow: rgb(210, 205, 45);
     --darkYellow: rgb(190, 185, 40);
 }

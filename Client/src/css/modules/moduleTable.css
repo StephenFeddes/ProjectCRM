@@ -1,0 +1,44 @@
+.module-container table {
+    width: 100%;
+}
+
+.module-container thead {
+    width: 100%;
+}
+
+.module-container th {
+    text-align: left;
+    border-right: 1px solid var(--mediumGrey);
+    font-size: 16px;
+    color: var(--blue);
+    border-bottom: 1px solid var(--mediumGrey);
+    padding-left: 5px;
+}
+
+.module-container th:last-child {
+    border-right: none;
+    padding: 7px;
+}
+
+.module-container thead tr {
+    background-color: var(--translucentBlue);
+}
+
+.module-container td {
+    border-bottom: 1px solid var(--grey);
+    font-size: 14px;
+    font-weight: 400;
+    padding: 5px 5px 5px 7px;
+}
+
+.module-container td:first-child {
+    width: 70px;
+}
+
+.module-container td:not(:first-child) {
+    width: calc((100% - 70px));
+}
+
+.module-container td:last-child {
+    border-right: none;
+}

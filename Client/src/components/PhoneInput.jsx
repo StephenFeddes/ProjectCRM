@@ -1,76 +1,73 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useReducer } from "react";
 import "../css/pickList.css";
 import "../css/phoneInput.css";
 import { FaChevronDown, FaTimes } from "react-icons/fa";
 
-function PhoneInput({ fieldName, onChange, countryFlagDefault, phoneIddDefault }) {
-	const [countryCode, setCountryCode] = useState('');
-	const [phoneNumber, setPhoneNumber] = useState('');
-	const [numbers, setNumbers] = useState('');
-	const [countryFlag, setCountryFlag] = useState(countryFlagDefault);
-	const [countryList, setCountryList] = useState([]);
-	const [searchValue, setSearchValue] = useState("");
-	const [filteredCountryList, setFilteredCountryList] = useState([]);
-	const [phoneIdd, setPhoneIdd] = useState(phoneIddDefault);
-	const [isListVisible, setListVisibility] = useState(false);
-	const [isArrowDown, setArrowOrientation] = useState(true);
-	const picklistRef = useRef(null);
-	const toggleListVisibility = () => {
-		setListVisibility(!isListVisible);
-		setArrowOrientation(!isArrowDown);
-	};
-	const handlePhoneInputChange = (event) => {
-		const inputNumbers = event.target.value;
-		const newPhoneNumber = phoneIdd + " " + inputNumbers;
-	  
-		setNumbers(inputNumbers);
-		setPhoneNumber(newPhoneNumber);
-		onChange(newPhoneNumber);
-	};
-	const handleSearchChange = (event) => {
-		const searchValue = event.target.value;
-		setSearchValue(searchValue);
-		const filteredCountries = countryList.filter((country) =>
-			country.name.common.toLowerCase().includes(searchValue.toLowerCase())
-		);
-		setFilteredCountryList(filteredCountries);
-	};
-	const selectCountry = (country) => {
-		setCountryCode(country.cca3);
-		setCountryFlag(country.flags.png);
-		setPhoneIdd(country.idd.root);
-		setPhoneNumber(country.idd.root+" "+numbers);
-		onChange(country.idd.root+" "+numbers);
-	};
+const initialState = {
+	numbers: "",
+	phoneNumber: "",
+	initialCountryList: "",
+	searchValue: "",
+	filteredCountryList: "",
+	isArrowDown: true,
+	selectedCountry: null
+}
 
-	useEffect(() => {
-		const fetchCountryList = async () => {
+const reducer = (state, action) => {
+	switch(action.type) {
+		case "SELECT_COUNTRY":
+			return updatedState = { ...state, ...action.payload };
+		case "INITIALIZE_COUNTRY_LIST":
+			return {...state, ...action.payload };
+		case "TOGGLE_LIST":
+			return {...state, isArrowDown: !state.isArrowDown};
+		case "CLOSE_LIST":
+			return {...state, isArrowDown: true};
+		default:
+			return state;
+	}
+}
+
+const PhoneInput = ({ fieldName, onChange, defaultIsoAlpha3Code }) => {
+	const [state, dispatch] = useReducer(reducer, initialState);
+
+	const openListRef = useRef(null);
+
+	useEffect( () => {
+		const initializeCountryList = async () => {
 			try {
-				const response = await fetch(
-					"https://restcountries.com/v3.1/all?fields=flags,idd,name,independent,area,cca3"
+				const countriesResponse = await fetch(
+				"https://restcountries.com/v3.1/all?fields=flags,idd,name,independent,area,cca3"
 				);
-				let countryList = await response.json();
+				let countryList = await countriesResponse.json();
 				countryList = countryList.filter((country) => country.independent);
 				countryList = countryList.sort((a, b) => b.area - a.area);
-
-				setFilteredCountryList(countryList);
-				setCountryList(countryList);
+				const initialCountry = countryList.find(
+				(country) => country.cca3 === defaultIsoAlpha3Code);
+	  
+			dispatch({
+				type: "INITIALIZE_COUNTRY_LIST",
+				payload: {
+				  filteredCountryList: countryList,
+				  initialCountryList: countryList,
+				  selectedCountry: initialCountry
+				},
+			});
 			} catch (error) {
 				console.error("Error:", error);
 			}
-		};
+		}
 
 		const handleClickOutside = (e) => {
 			if (
-				e.target.parentNode !== picklistRef.current &&
-				e.target.parentNode.parentNode !== picklistRef.current
+				e.target.parentNode != openListRef.current &&
+				e.target != openListRef.current
 			) {
-				setListVisibility(false);
-				setArrowOrientation(true);
+				dispatch({ type: "CLOSE_LIST"})
 			}
 		};
 
-		fetchCountryList();
+		initializeCountryList();
 		document.addEventListener("click", handleClickOutside);
 
 		return () => {
@@ -79,46 +76,57 @@ function PhoneInput({ fieldName, onChange, countryFlagDefault, phoneIddDefault }
 	}, []);
 
 	return (
-		<div ref={picklistRef} className="phone picklist">
-			<div className="input-container">
-				<div className="flag-container" onClick={toggleListVisibility}>
-					<img
-						className="flag"
-						src={countryFlag}
-						alt="flag"
-					/>
-					<FaChevronDown className={isArrowDown ? "arrow" : "arrow up"} />
-				</div>
-				<input className="selected-input" type="text" placeholder={fieldName} onChange={handlePhoneInputChange} />
-			</div>
-			{isListVisible && (
-			<div className="list">
-				<input
-					type="text"
-					placeholder="Search"
-					className="search"
-					value={searchValue}
-					onChange={handleSearchChange}
+		<div className="phone picklist">
+		  <div className="input-container">
+			<div
+			  ref={openListRef}
+			  className="flag-container"
+			  onClick={() => dispatch({ type: "TOGGLE_LIST" })}
+			>
+			  {state.selectedCountry && (
+				<img
+				  className="flag"
+				  src={state.selectedCountry.flags.png}
+				  alt="flag"
 				/>
-				<ul>
-				{filteredCountryList.map((country, index) => (
-					<li
-						className={country.cca3 === countryCode ? "selected" : ""}
-						key={country.cca3}
-						onClick={() => {
-							selectCountry(country);
-							toggleListVisibility();
-						}}
-					>
-						<img className="flag" src={country.flags.png} alt="flag" />
-						{country.name.common}
-					</li>
-				))}
-				</ul>
+			  )}
+			  <FaChevronDown className={state.isArrowDown ? "arrow" : "arrow up"} />
 			</div>
-		)}
+			<input className="selected-input" type="text" placeholder={fieldName} />
+		  </div>
+		  {!state.isArrowDown && (
+			<div className="list">
+			  <input
+				type="text"
+				placeholder="Search"
+				className="search"
+				value={state.searchValue}
+				onChange={() => dispatch({ type: "TOGGLE_LIST" })}
+			  />
+			  <ul>
+				{state.filteredCountryList.map((country, index) => (
+				  <li
+					className={country.cca3 == state.selectedCountry.cca3 ? "selected" : ""}
+					key={country.cca3}
+					onClick={() => {
+					  const updatedState = {
+						...state,
+						selectedCountry: country,
+					  };
+					  onChange(updatedState.selectedCountry.idd.root + " " + state.numbers);
+					  dispatch({ type: "SELECT_COUNTRY", payload: updatedState });
+					  dispatch({ type: "TOGGLE_LIST" });
+					}}
+				  >
+					<img className="flag" src={country.flags.png} alt="flag" />
+					{country.name.common}
+				  </li>
+				))}
+			  </ul>
+			</div>
+		  )}
 		</div>
-	);
+	  );
 }
 
 export default PhoneInput;

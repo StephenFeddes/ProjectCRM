@@ -4,6 +4,7 @@ import { FaChevronDown, FaTimes } from "react-icons/fa";
 import { RxCross1 } from 'react-icons/rx';
 import { API_URL } from "../constants.js";
 
+
 function Picklist({ onChange, inputName, itemsEndpoint, itemFieldName, isRequired=false}) {
 	const [searchValue, setSearchValue] = useState("");
     const [itemList, setItemList] = useState([]);
@@ -12,10 +13,7 @@ function Picklist({ onChange, inputName, itemsEndpoint, itemFieldName, isRequire
 	const [isListVisible, setListVisibility] = useState(false);
 	const [isArrowDown, setArrowOrientation] = useState(true);
 	const picklistRef = useRef(null);
-	const toggleListVisibility = () => {
-		setListVisibility(!isListVisible);
-		setArrowOrientation(!isArrowDown);
-	};
+
 	const handleSearchChange = (event) => {
 		const searchValue = event.target.value;
 		setSearchValue(searchValue);
@@ -30,7 +28,7 @@ function Picklist({ onChange, inputName, itemsEndpoint, itemFieldName, isRequire
 			try {
 				const response = await fetch(API_URL+itemsEndpoint);
 				let items = await response.json();
-				console.log(items[0][itemFieldName]);
+
 				items = items.map(item => item[itemFieldName])
 				setItemList(items);
 				setFilteredItemList(items);
@@ -43,7 +41,6 @@ function Picklist({ onChange, inputName, itemsEndpoint, itemFieldName, isRequire
 				e.target.parentNode !== picklistRef.current &&
 				e.target.parentNode.parentNode !== picklistRef.current
 			) {
-				setListVisibility(false);
 				setArrowOrientation(true);
 			}
 		};
@@ -58,9 +55,9 @@ function Picklist({ onChange, inputName, itemsEndpoint, itemFieldName, isRequire
 
 	return (
 		<div ref={picklistRef} className="picklist">
-			<div onClick={toggleListVisibility} className="input-container">
+			<div onClick={() => setArrowOrientation(!isArrowDown)} className="input-container">
 				<label>{inputName}</label>
-				<input className="selected-input" type="text" value={selectedItem} />
+				<input className="selected-input" type="text" readOnly value={selectedItem} />
 				<RxCross1
 					className="delete"
 					onClick={(e) => {
@@ -70,7 +67,7 @@ function Picklist({ onChange, inputName, itemsEndpoint, itemFieldName, isRequire
 				/>
 				<FaChevronDown className={isArrowDown ? "arrow" : "arrow up"} />
 			</div>
-			{isListVisible && (
+			{!isArrowDown && (
 			<div className="list">
 				<input
 					type="text"
@@ -86,7 +83,7 @@ function Picklist({ onChange, inputName, itemsEndpoint, itemFieldName, isRequire
 						key={index}
 						onClick={() => {
 							setSelectedItem(item);
-							toggleListVisibility();
+							setArrowOrientation(true);
 							onChange(item);
 						}}
 					>

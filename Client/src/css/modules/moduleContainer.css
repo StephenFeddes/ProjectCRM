@@ -1,0 +1,4 @@
+.module-container {
+    height: calc(100vh - 70px);
+    padding: 10px;
+}

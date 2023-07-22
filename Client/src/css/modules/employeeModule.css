@@ -1,0 +1,11 @@
+.employee-module {
+    background-color: var(--lightGrey);
+    border-radius: 3px;
+    height: 100%;
+    border: 1px solid var(--grey);
+}
+
+.module-header {
+    border-bottom: 1px solid var(--mediumGrey);
+    height: 50px;
+}

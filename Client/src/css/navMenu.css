@@ -1,0 +1,66 @@
+.nav-menu {
+    position: relative;
+}
+
+.nav-menu .menu-name {
+    padding: 3px 6px 3px 6px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.nav-menu.active .menu-name {
+    border-top: 3px solid var(--turquoise);
+    background: var(--translucentTurquoise);
+}
+
+.nav-menu:hover .menu-name {
+    border-top: 3px solid var(--turquoise);
+    background: var(--translucentTurquoise);
+}
+
+.chevron {
+    color: var(--mediumGrey);
+    cursor: pointer;
+}
+
+.nav-menu ul {
+    position: absolute;
+    background-color: var(--mediumGrey);
+    width: 100%;
+    padding: 5px;
+    border-radius: 0px 0px 3px 3px;
+    opacity: 1;
+}
+
+.nav-menu:hover ul {
+    display: block;
+}
+
+.nav-menu ul li {
+    font-size: 14px;
+    text-align: center;
+    color: var(--white);
+    transition: 0.3s;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 3px;
+}
+
+.nav-menu ul li:hover {
+    opacity: 1;
+}
+
+.menu-link {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.arrow {
+    transition: 0.3s;
+}
+
+.arrow.up {
+    transform: rotate(180deg);
+}

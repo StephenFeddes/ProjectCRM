@@ -59,17 +59,29 @@ function EmployeeForm() {
 				<TextInput inputName="Last Name" onChange={setLastName} isRequired={true}
 					inputError={inputErrors.lastName} isSubmitPressed={isSubmitPressed}
 				 />
-				<TextInput inputName="Email" onChange={setEmailAddress} 
-					inputError={inputErrors.emailAddress} isSubmitPressed={isSubmitPressed} 
+				<PhoneInput inputName="Mobile" 
+					fieldName="Mobile" defaultIsoAlpha3Code="USA" onChange={setMobileNumber} 
 				/>
-				<PhoneInput inputName="Mobile" countryFlagDefault="https://flagcdn.com/w320/us.png" 
-    				fieldName="Mobile" phoneIddDefault="+1" onChange={setMobileNumber} 
+				<TextInput inputName="Username" onChange={setEmailAddress} isRequired={true}
+					inputError={inputErrors.emailAddress} isSubmitPressed={isSubmitPressed} 
+
 				/>
 				<Picklist 
 					inputName="Department"
 					itemsEndpoint="/departments"
 					onChange={setDepartmentName}
 					itemFieldName="department_name"
+				/>
+				<TextInput inputName="Password" onChange={setEmailAddress} isRequired={true}
+					inputError={inputErrors.emailAddress} isSubmitPressed={isSubmitPressed} 
+
+				/>
+				<TextInput inputName="Email" onChange={setEmailAddress} 
+					inputError={inputErrors.emailAddress} isSubmitPressed={isSubmitPressed} 
+				/>
+				<TextInput inputName="Confirm Password" onChange={setEmailAddress} isRequired={true}
+					inputError={inputErrors.emailAddress} isSubmitPressed={isSubmitPressed} 
+
 				/>
 				<CalendarInput onChange={setHireDate} inputName="Hire Date" />
 				<div className="modal-buttons">

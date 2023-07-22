@@ -2,7 +2,6 @@
 	border: 1px solid var(--grey);
 	border-radius: 5px;
 	cursor: pointer;
-	z-index: 1;
 	position: relative;
 	background-color: var(--lightGrey);
 }
@@ -47,7 +46,7 @@
 	background: transparent;
 	color: var(--darkGrey);
 	width: 40px;
-	height: 40px;
+	height: 43px;
 	padding: 10px;
 	border-radius: 0px 5px 5px 0px;
 	transition: 0.3s;
@@ -63,8 +62,8 @@
 	background-color: var(--white);
 	background: transparent;
 	color: var(--darkGrey);
-	width: 40px;
-	height: 40px;
+	width: 43px;
+	height: 43px;
 	padding: 10px;
 	border-right: 1px solid var(--grey);
 }
@@ -86,6 +85,7 @@
 	position: absolute;
 	width: 100%;
 	top: 100%;
+	z-index: 2;
 }
 
 .picklist ul {

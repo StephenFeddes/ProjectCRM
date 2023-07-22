@@ -1,0 +1,41 @@
+nav {
+    height: 70px;
+    background-color: var(--white);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    border-bottom: 3px solid var(--orange);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    padding: 5px 5px 0px 25px;
+}
+
+nav .logout {
+    position: relative;
+    margin-left: auto;
+    display: flex;
+    align-items: flex-end;
+    padding: 5px;
+    height: 35px;
+}
+
+nav .logout i {
+    right: 33px;
+    top: -10px;
+    position: absolute;
+}
+
+nav .logout-btn {
+    height: 25px;
+    width: 25px;
+    color: var(--mediumGrey);
+    cursor: pointer;
+}
+
+nav .logout-btn:hover {
+    color: var(--darkGrey);
+}
+
+nav .company-menu {
+    height: 25px;
+    width: 25px;
+}
